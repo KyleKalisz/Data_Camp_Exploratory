@@ -1,0 +1,44 @@
+---
+title: "Titanic_Exploratory"
+output: html_notebook
+---
+
+Set up work space 
+
+```{r}
+# Import Packages
+library("tidyverse")
+
+Titanic <- read.csv("full.csv")
+```
+
+Step #1: Check the structure of titanic
+```{r}
+str(Titanic)
+```
+
+Step #2 Use ggplot() for the first instruction
+```{r}
+ggplot(Titanic, aes(x = Pclass, fill = Sex)) +
+  geom_bar(position = "dodge")
+```
+
+Step #3 Plot 2, add facet_grid() layer
+```{r}
+ggplot(Titanic, aes(x = Pclass, fill = Sex)) +
+  geom_bar(position = "dodge") +
+  facet_grid(. ~ Survived)
+```
+
+Step #4 Define an object for position jitterdodge, to use below
+```{r}
+posn.jd <- position_jitterdodge(0.5, 0, 0.6)
+```
+
+Step #5 Plot 3, but use the position object from instruction 4
+```{r}
+ggplot(Titanic, aes(x = Pclass, y = Age, color = Sex)) +
+  geom_point(size = 3, alpha = 0.5, position = posn.jd) +
+  facet_grid(. ~ Survived)
+```
+
